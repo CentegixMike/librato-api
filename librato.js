@@ -68,7 +68,10 @@ function * getMetrics (maybeSink) {
 
 function * getMetric (name, maybeSink) {
   logger.verbose('getMetric', { name, to: maybeSink })
-  const metric = yield libratoApi.getMetric(name)
+  var date1 = Date.now()
+  date1 = date1 - 3600000
+  var date2 = Date.now()
+  const metric = yield libratoApi.getMetric(name, {qs: { start_time: date1, end_time: date2 } })
   yield writeJson(maybeSink, metric)
 }
 
